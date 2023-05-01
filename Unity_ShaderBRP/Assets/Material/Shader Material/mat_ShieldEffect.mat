@@ -26,11 +26,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.433
+    - _Alpha: 0.402
     - _Emission: 1
-    - _FresnelPower: 1.93
+    - _FresnelPower: 10
     - _FresnelRamp: 10
-    - _vertexAnimation: 0.0011
+    - _vertexAnimation: 0
     - _vertexManipulation: 0.326
     - _vertexSize: 0
     m_Colors:
