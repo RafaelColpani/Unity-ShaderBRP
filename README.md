@@ -9,5 +9,5 @@
 </p>
 
 <h5 align="center">
-  Creation of some shaders for 3D Game using Unity's Default Render Pipeline (BRP)
+  Creation of some shaders for 3D Game using Unity Built-in Render Pipeline (BRP)
 </h5>
