@@ -21,6 +21,7 @@
 <h4 align="left"> What you will find in this repository: </h4>
 
 - Basic Scene `.unity`
+- Interaction code `.cs`
 - Shield Effect `.shader`
 - Flames `.shader`
 - Fireball `.shader`
