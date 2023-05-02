@@ -41,5 +41,5 @@
 > Scenes/CG.unity
 ```
 
-<h6> Open CG.scene </h6>
+<h6> Open CG.unity </h6>
 <h6> Now you have access to the entire interaction environment and just press play to run the scene </h6>
