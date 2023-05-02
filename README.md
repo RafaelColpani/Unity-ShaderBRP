@@ -20,7 +20,7 @@
 
 <h4 align="left"> What you will find in this repository: </h4>
 
-- Basic Scene `.scene`
+- Basic Scene `.unity`
 - Shield Effect `.shader`
 - Flames `.shader`
 - Fireball `.shader`
@@ -38,7 +38,7 @@
 <h6> With the project open, go to the following folder </h6>
 
 ```
-> Scenes/CG.scene
+> Scenes/CG.unity
 ```
 
 <h6> Open CG.scene </h6>
