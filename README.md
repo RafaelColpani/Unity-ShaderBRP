@@ -19,3 +19,27 @@
 </p>
 
 <h4 align="left"> What you will find in this repository: </h4>
+
+- Basic Scene `.scene`
+- Shield Effect `.shader`
+- Flames `.shader`
+- Fireball `.shader`
+- Water Effect `.shader`
+- Low Life `.shader`
+
+<h4 align="left"> Load project: </h4>
+<h6> Download all files in option ".zip files" and open Unity Hub, click in </h6>
+
+```
+> open project
+```
+
+<h6> Extract the folder and click open </h6>
+<h6> With the project open, go to the following folder </h6>
+
+```
+> Scenes/CG.scene
+```
+
+<h6> Open CG.scene </h6>
+<h6> Now you have access to the entire interaction environment and just press play to run the scene </h6>
