@@ -17,7 +17,7 @@ Shader "_Custom/Flames"
     }   
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags {"Queue" = "Transparent" "RenderType" = "Transparent" }
         LOD 100
         AlphaToMask on
         Blend SrcAlpha OneMinusSrcAlpha
@@ -67,7 +67,7 @@ Shader "_Custom/Flames"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv) + _Color;
+                fixed4 col = tex2D(_MainTex, i.uv) ;
                 col.a *= _Alpha;
 
                 return col;
