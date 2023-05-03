@@ -3,7 +3,7 @@ Shader "_Custom/WaterEffect"
     Properties
     {
         [Header(Basic Color)] [Space(5)]
-        _BasicColor("Basic color", color) = (1, 1, 1, 1,) //Cor base da agua
+        _BasicColor("Basic color", color) = (1, 1, 1, 1) //Cor base da agua
         [Space(15)]
 
         [Header(All Texture)] [Space(5)]
@@ -27,6 +27,7 @@ Shader "_Custom/WaterEffect"
         _Alpha("Alpha", Range(0.0, 1.0)) = 0.443    
         
     }   
+
     SubShader
     {
         //Render
@@ -92,17 +93,17 @@ Shader "_Custom/WaterEffect"
                 //Cor base 
                 fixed4 col = _BasicColor;
 
+                //Alpha
+                col.a *= _Alpha; // a = alpha
+                
                 //Textura + cor da textura
-                fixed4 texture = text2D(_WaterTexture, i.uv) + _ColorTexture;
+                col = tex2D(_WaterTexture, i.uv) + _ColorTexture;
 
                 //Cor base + textura já misturada com a sua cor
-                fixed4 colTexture = col + textura
-
-                //Alpha
-                colTexture.a *= _Alpha; // a = alpha
-
+                
+                
                 //Return material
-                return colTexture;
+                return col;
             }
             ENDCG
         }

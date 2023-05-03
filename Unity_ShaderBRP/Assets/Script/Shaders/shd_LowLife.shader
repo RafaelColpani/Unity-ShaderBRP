@@ -14,7 +14,7 @@ Shader "_Custom/LowLife"
         
         [Header(Alpha)] [Space(5)]
         _Alpha("Alpha", Range(0.0, 1.0)) = 0.4
-        [Space(10)]
+
     }   
 
     SubShader
@@ -40,12 +40,17 @@ Shader "_Custom/LowLife"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+
+                float3 normal : NORMAL;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+
+                float3 normal : TEXCOORD1;
+                float3 viewDir : TEXCOORD2;
             };
 
             //Variaveis para o codigo
@@ -53,18 +58,22 @@ Shader "_Custom/LowLife"
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
+            fixed4 _Color;
+
             //Alpha
             float _Alpha;
 
             //Fresnel
             float _FresnelPower, _FresnelRamp;
+
+
             
             v2f vert (appdata v)
             {
                 v2f o;
 
                 //Animation
-                v.vertex.xy += sin(_Time.y * _VertexAnimationSpeed + v.vertex.xy * _VertexAnimationOffset.x); 
+                //v.vertex.xy += sin(_Time.y * _VertexAnimationSpeed + v.vertex.xy * _VertexAnimationOffset.x); 
                 
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
