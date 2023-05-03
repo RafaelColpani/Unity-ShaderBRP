@@ -53,7 +53,12 @@ Shader "_Custom/Flames"
             {
                 v2f o;
 
-                v.vertex.xy += sin(_Time.y * _VertexAnimationSpeed + v.vertex.xy * _VertexAnimationOffset.x); 
+                //Pega a metade da UV e a anima
+                if(v.uv.y < 0.5)
+                {
+                    v.vertex.xy += sin(_Time.y * _VertexAnimationSpeed + v.vertex.xy * _VertexAnimationOffset.x); 
+            
+                }
                 
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
