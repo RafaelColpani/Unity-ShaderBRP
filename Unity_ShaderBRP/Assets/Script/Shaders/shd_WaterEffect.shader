@@ -2,41 +2,27 @@ Shader "_Custom/WaterEffect"
 {
     Properties
     {
-        [Header(Basic Color)] [Space(5)]
-        _BasicColor("Basic color", color) = (1, 1, 1, 1) //Cor base da agua
-        [Space(15)]
-
         [Header(All Texture)] [Space(5)]
         _WaterTexture("Water Texture", 2D) = "white" {}
         [Space(15)]
 
-        [Header(Texture Color)][Space(5)]
-        _ColorTexture("Color Texture", color) = (1, 1, 1, 1) // cor da textura 
-        [Space(15)]
-
-        //
-        // Espaço para o Voronoi
-        //
-
-        [Header(Animation)] [Space(5)]
-        _VertexAnimationSpeed("Vertex Animation Speed", Range(0.0, 10.0)) = 0
-        _VertexAnimationOffset("Vertex Animation Offset", Range(0.0, 4.0)) = 0
-        [Space(15)]
-
         [Header(Conf Alpha)] [Space(5)]
         _Alpha("Alpha", Range(0.0, 1.0)) = 0.443    
+        [Space(15)]
+
+        [Header(Fresnel)] [Space(5)]
+        _FresnelPower("Fresnel Power", Range(0.0, 10.0)) = 2
+        _FresnelRamp("Fresnel Ramp", Range(0.0, 10.0)) = 1
+        //[Space(10)]
         
     }   
 
     SubShader
     {
-        //Render
-        //Tags { "RenderType"="Opaque" }
-        Tags {"Queue" = "Transparent" "RenderType"="Transparent" } 
+        Tags {"Queue" = "Transparent" "RenderType" = "Transparent" }
         LOD 100
-
-        //Alpha
         AlphaToMask on
+        //zWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
@@ -51,59 +37,57 @@ Shader "_Custom/WaterEffect"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
+
+                float3 normal : NORMAL;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
+
+                float3 normal : TEXCOORD1; 
+                float3 viewDir : TEXCOORD2;
             };
 
-            //Variaveis para o codigo
-            fixed4 _BasicColor;
 
             //Textura
             sampler2D _WaterTexture;
             float4 _WaterTexture_ST;
-            fixed4 _ColorTexture;
-
-            //Animation
-            float _VertexAnimationSpeed, _VertexAnimationOffset;
-            
-            //Alpha
             float _Alpha;
+
+            float _FresnelPower, _FresnelRamp;
+
             
             v2f vert (appdata v)
             {
                 v2f o;
 
-                //Animation
-                v.vertex.xy += sin(_Time.y * _VertexAnimationSpeed + v.vertex.xy * _VertexAnimationOffset.x); 
-                
                 o.vertex = UnityObjectToClipPos(v.vertex);
+
+
+                //Fresnel effect
+                o.normal = UnityObjectToWorldNormal(v.normal); //eh semelhante ao node "Position" no URP
+                o.viewDir = normalize(WorldSpaceViewDir(v.vertex));
+
                 o.uv = TRANSFORM_TEX(v.uv, _WaterTexture);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {   
-                //return 1; //Retorna a cor branca
-
-                //Tudo teoria agora == Testar na engine depois 
-                //Cor base 
-                fixed4 col = _BasicColor;
+                //Textura
+                fixed4 col = tex2D(_WaterTexture, i.uv);
 
                 //Alpha
-                col.a *= _Alpha; // a = alpha
-                
-                //Textura + cor da textura
-                col = tex2D(_WaterTexture, i.uv) + _ColorTexture;
+                col.a *= _Alpha; 
 
-                //Cor base + textura já misturada com a sua cor
-                
-                
+                //Fresenl
+                float fresnelCalc = 1 - max(0, dot(i.normal, i.viewDir)); 
+                fresnelCalc = pow(fresnelCalc, _FresnelRamp) * _FresnelPower; 
+
                 //Return material
-                return col;
+                return col + fresnelCalc;
             }
             ENDCG
         }
