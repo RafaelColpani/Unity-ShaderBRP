@@ -1,21 +1,13 @@
-Shader "_Custom/Flames"
+Shader "_Custom/shd_Grass"
 {
     Properties
     {
-        [Header(Conf Textura)] [Space(5)]
         _MainTex ("Texture", 2D) = "white" {}
-        _DistText ("Dist Texture", 2D) = "white" {}
-        _Color("Color", color) = (1,1,1,1)
-        [Space(15)]
 
-        [Header(Conf Alpha)] [Space(5)]
-        _Alpha("Alpha", Range(0.0, 1.0)) = 0.443    
-        [Space(15)]
+        [Header(Vertex Config)] [Space(5)]
+        _vertexPlayer("Player Positon", Vector) = (0, 0, 0, 0)
+    }
 
-        [Header(Animation)] [Space(5)]
-        _Speed("Speed", Range(0.0, 1.8)) = 0
-
-    }   
     SubShader
     {
         Tags {"Queue" = "Transparent" "RenderType" = "Transparent" }
@@ -29,35 +21,40 @@ Shader "_Custom/Flames"
             #pragma vertex vert
             #pragma fragment frag
 
+
             #include "UnityCG.cginc"
 
             struct appdata
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                float2 distText: TEXCOORD1;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                float2 distText: TEXCOORD1;
                 float4 vertex : SV_POSITION;
+
+                float3 normal : TEXCOORD1; 
+                float3 viewDir : TEXCOORD2;
             };
 
-            sampler2D _MainTex, _DistText;
-            float4 _MainTex_ST, _DistText_ST;
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
 
-            fixed4 _Color;
-            float _Alpha;
-            float _Speed;
+            float3 _vertexPlayer;
 
             v2f vert (appdata v)
             {
                 v2f o;
+                //v.vertex.x += _vertexPlayer;    
+            
+                if(v.uv.y > 0.15)
+                {
+                    v.vertex.xy += _vertexPlayer.x; 
+            
+                }
                 
-                o.distText = TRANSFORM_TEX(v.distText, _DistText);
-
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;
@@ -65,13 +62,9 @@ Shader "_Custom/Flames"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed2 speed = float2(i.distText.x, i.distText.y + (_Time.y * _Speed));
-                fixed4 distortion = tex2D(_DistText, speed);
-                fixed2 colset = float2(distortion.x, i.uv.y);
-
-                fixed4 col = tex2D(_MainTex, colset);
-                col.a *= _Alpha;
-
+                // sample the texture
+                fixed4 col = tex2D(_MainTex, i.uv);
+    
                 return col;
             }
             ENDCG
