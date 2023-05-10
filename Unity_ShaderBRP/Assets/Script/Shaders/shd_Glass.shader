@@ -1,23 +1,17 @@
-Shader "_Custom/shd_Dissolver"
+Shader "_Custom/shd_Glass"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}  
-        _NoiseTex ("Noise Texture", 2D) = "white" {}  
-
         _Color ("Color", Color) = (1, 1, 1, 1)
-
         _Intensity("Intensity", Float) = 1
         _Ramp("Ramp", Float) = 1
-        _Noise("_Noise", Float) = 0.5
     }
 
     SubShader
     {
-        //Tags { "RenderType"="Opaque" } 
-        Tags {"Queue" = "Transparent" "RenderType" = "Transparent" } 
+        Tags { "RenderType"="Opaque" }  
         LOD 100  
-        AlphaToMask on
         Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
@@ -40,11 +34,11 @@ Shader "_Custom/shd_Dissolver"
                 float4 vertex : SV_POSITION; 
             };
 
-            sampler2D _MainTex, _NoiseTex;  
-            float4 _MainTex_ST, _NoiseTex_ST;
+            sampler2D _MainTex;  
+            float4 _MainTex_ST;
 
             fixed4 _Color;
-            fixed _Ramp, _Intensity, _Noise;  
+            fixed _Ramp, _Intensity;  
 
             v2f vert (appdata v)
             {
@@ -57,18 +51,12 @@ Shader "_Custom/shd_Dissolver"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed3 col = tex2D(_MainTex, i.uv); 
+                fixed4 col = tex2D(_MainTex, i.uv); 
                 
-                fixed lumiance = Luminance(col);
-                fixed3 mainColor = lumiance * _Color;
-                mainColor = pow(mainColor, _Ramp) * _Intensity;
+                fixed4 lumiance = Luminance(col);
 
-                fixed3 noiseTex = tex2D(_NoiseTex, i.uv);
-                fixed noiseMove = abs(sin(noiseTex.r * 10  + _Time.y));
-                noiseMove = step(noiseMove, _Noise);
-
-                //return fixed4 (mainColor * noiseMove.rrr, 1);  
-                return fixed4 (mainColor * noiseMove, noiseMove);  
+                return lumiance;
+                return col;  
             }
             ENDCG  
         }
