@@ -6,12 +6,14 @@ Shader "_Custom/shd_Grass"
 
         [Header(Vertex Config)] [Space(5)]
         _vertexPlayer("Player Positon", Vector) = (0, 0, 0, 0)
+        _Distance("Distance", Vector) = (0, 0, 0, 0)
     }
 
     SubShader
     {
         Tags {"Queue" = "Transparent" "RenderType" = "Transparent" }
         LOD 100
+        Cull Off
         AlphaToMask on
         Blend SrcAlpha OneMinusSrcAlpha
 
@@ -42,17 +44,18 @@ Shader "_Custom/shd_Grass"
             sampler2D _MainTex;
             float4 _MainTex_ST;
 
-            float3 _vertexPlayer;
+            float3 _vertexPlayer, _Distance;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 //v.vertex.x += _vertexPlayer;    
-            
+                
+                //usar o lenght para calcular a distancia do player com o objeto
+
                 if(v.uv.y > 0.15)
                 {
-                    v.vertex.xy += _vertexPlayer.x; 
-            
+                    v.vertex.x -= _vertexPlayer.x; 
                 }
                 
                 o.vertex = UnityObjectToClipPos(v.vertex);

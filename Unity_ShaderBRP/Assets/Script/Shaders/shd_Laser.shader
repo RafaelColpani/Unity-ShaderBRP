@@ -5,6 +5,7 @@ Shader "_Custom/shd_Laser"
         [Header(Conf Textura)] [Space(5)]
         _MainTex ("Texture", 2D) = "white" {}
         _Color("Color", color) = (1,1,1,1)
+        _Gamma ("Gamma", Range (0, 1)) = 0
         [Space(15)]
 
         [Header(Conf Alpha)] [Space(5)]
@@ -18,6 +19,7 @@ Shader "_Custom/shd_Laser"
     {
         Tags {"Queue" = "Transparent" "RenderType" = "Transparent" }
         LOD 100
+        Cull Off
         AlphaToMask on
         Blend SrcAlpha OneMinusSrcAlpha
         Pass
@@ -44,7 +46,7 @@ Shader "_Custom/shd_Laser"
             float4 _MainTex_ST;
 
             fixed4 _Color;
-            float _Alpha;
+            float _Alpha, _Gamma;
             float4 _VertexAnimation;
 
             v2f vert (appdata v)
@@ -62,7 +64,7 @@ Shader "_Custom/shd_Laser"
                 fixed4 col = tex2D(_MainTex, i.uv);
                 col.a *= _Alpha;
 
-                return col * _Color;
+                return col * _Color + _Gamma;
             }
             ENDCG
         }

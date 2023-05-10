@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class shaderInteraction : MonoBehaviour
 {
-    private GameObject tracker;
-    private Material material;
+    [SerializeField] GameObject tracker;
+    [SerializeField] Material material;
 
     // Start is called before the first frame update
     void Start()
     {
         material = GetComponent<Renderer>().material;
-        tracker = GameObject.Find("Player");
+        //tracker = GameObject.Find("Player");
     }
 
     // Update is called once per frame

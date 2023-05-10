@@ -38,11 +38,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Displacement: 0.94
-    - _FresnelPower: 1.43
+    - _Displacement: 2
+    - _FresnelPower: 1.55
+    - _LodA: 0.3
     - _RimPower: 8
-    - _SpecIntensity: 8.57
-    - _SpecRange: 0.566
+    - _SpecIntensity: 5.93
+    - _SpecRange: 0.309
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 0}

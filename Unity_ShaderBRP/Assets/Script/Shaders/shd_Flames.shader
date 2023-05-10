@@ -20,6 +20,7 @@ Shader "_Custom/Flames"
     {
         Tags {"Queue" = "Transparent" "RenderType" = "Transparent" }
         LOD 100
+        Cull off
         AlphaToMask on
         Blend SrcAlpha OneMinusSrcAlpha
 

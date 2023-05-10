@@ -22,7 +22,6 @@ Shader "_Custom/shd_Ice"
         [Header(Fresnel Config)] [Space(5)]
         _FresnelColor ("Fresnel Color", Color) = (0.26,0.19,0.16,0.0)
         _FresnelPower ("Fresnel Power", Range(0.5,8.0)) = 3.0
-
     }
 
     SubShader

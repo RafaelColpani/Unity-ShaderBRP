@@ -13,7 +13,11 @@ Shader "_Custom/WaterEffect"
         [Header(Fresnel)] [Space(5)]
         _FresnelPower("Fresnel Power", Range(0.0, 10.0)) = 2
         _FresnelRamp("Fresnel Ramp", Range(0.0, 10.0)) = 1
-        //[Space(10)]
+        [Space(10)]
+
+        [Header(Vertex Config)] [Space(5)]
+        _vertexSize("Vertex Size", Range(0, 0.5)) = 0
+        _vertexAnimation("Vertex Animation", Range(0, 1)) = 0
         
     }   
 
@@ -57,6 +61,7 @@ Shader "_Custom/WaterEffect"
             float _Alpha;
 
             float _FresnelPower, _FresnelRamp;
+            float _vertexSize, _vertexAnimation;
 
             
             v2f vert (appdata v)
@@ -64,6 +69,13 @@ Shader "_Custom/WaterEffect"
                 v2f o;
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
+
+                //Vertex
+                
+                v.vertex.xy += sin(_Time.z * _vertexAnimation + v.vertex.y + _vertexSize);
+                o.vertex =  UnityObjectToClipPos(v.vertex);
+                //o.uv = v.uv;
+                
 
 
                 //Fresnel effect
