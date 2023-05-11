@@ -5,6 +5,7 @@ Shader "_Customt/shd_Light"
         [Header(Conf Textura)] [Space(5)]
         _MainTex ("Texture", 2D) = "white" {}
         _TexOffset ("Texture Offset", Range(0, 15.0)) = 1.0
+
         [Space(15)]
 
         [Header(Color)] [Space(5)]
@@ -66,8 +67,7 @@ Shader "_Customt/shd_Light"
                 fixed4 color3 = abs(0.1 + length(i.uv) - _TexOffset * abs(sin(_Time.y * _AnimationTime ))) * _Color3;
 
                 fixed4 allColor = sin(_Time.x + color1 + color2) ;
-                
-             
+        
                 
                 return col * allColor ;
             }

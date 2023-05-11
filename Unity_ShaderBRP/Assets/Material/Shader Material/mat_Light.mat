@@ -26,10 +26,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimationTime: 4.08
-    - _TexOffset: 2.7
+    - _Alpha: 0.06
+    - _AnimationTime: 1.46
+    - _TexOffset: 3.1
     m_Colors:
     - _Color1: {r: 1, g: 0.040395737, b: 0, a: 0}
     - _Color2: {r: 0, g: 0.09069872, b: 1, a: 0}
-    - _Color3: {r: 0, g: 0.5997076, b: 1, a: 0}
+    - _Color3: {r: 0, g: 0.5603773, b: 0.9339623, a: 0}
   m_BuildTextureStacks: []
