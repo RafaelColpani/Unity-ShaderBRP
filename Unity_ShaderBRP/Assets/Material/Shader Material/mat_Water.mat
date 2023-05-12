@@ -20,8 +20,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _EffectTex:
+        m_Texture: {fileID: 2800000, guid: 8076e1dd1e60b234d931e5816e926e9a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 1, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 20f55e1e3bccd5442b2d12e97350c9ce, type: 3}
+        m_Texture: {fileID: 2800000, guid: 17a56fb395fa0224583b03758d0405ae, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UVTexture:
@@ -34,15 +38,30 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
+    - _Alpha: 0.568
+    - _AlphaEffect: 0.758
+    - _AlphaTexture: 0.685
+    - _BottomFeather: 2.68
+    - _CloseEffect: 0.646
     - _FresnelPower: 4.63
     - _FresnelRamp: 4.93
+    - _Intensity: 9.9
+    - _OpenEffect: 0.0415
     - _Speed: 1
+    - _UpperFeather: 0.93
     - _VertexAnimationOffset: 0
     - _VertexAnimationSpeed: 0
+    - _a: 0.1
+    - _closeEffect: 1
+    - _openEffect: 0.01
+    - _time: 0.377
     - _vertexAnimation: 0
     - _vertexSize: 0
     m_Colors:
+    - _Alpha: {r: 0, g: 0, b: 0, a: 0}
     - _BasicColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorTexture: {r: 1, g: 1, b: 1, a: 1}
+    - _PosAnimation: {r: 0, g: 1, b: 0, a: 0}
+    - _posAnimation: {r: 0, g: 0.1, b: 0, a: 0}
   m_BuildTextureStacks: []
