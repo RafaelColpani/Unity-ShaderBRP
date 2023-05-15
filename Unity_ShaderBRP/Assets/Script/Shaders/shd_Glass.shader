@@ -2,8 +2,15 @@ Shader "_Custom/shd_Glass"
 {
     Properties
     {
+        [Header(Texture)] [Space(5)]
         _MainTex ("Texture", 2D) = "white" {}  
+        [Space(15)]
+        
+        [Header(Color)] [Space(5)]
         _Color ("Color", Color) = (1, 1, 1, 1)
+        [Space(15)]
+        
+        [Header(Texture Config)] [Space(5)]
         _Intensity("Intensity", Float) = 1
         _Ramp("Ramp", Float) = 1
     }
@@ -51,10 +58,13 @@ Shader "_Custom/shd_Glass"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //Textura principal
                 fixed4 col = tex2D(_MainTex, i.uv); 
                 
+                //Retorna um grayscale
                 fixed4 lumiance = Luminance(col);
 
+                //2 return para dar o efeito da camera
                 return lumiance;
                 return col;  
             }

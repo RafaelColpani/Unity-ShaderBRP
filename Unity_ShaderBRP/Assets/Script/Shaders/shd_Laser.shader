@@ -53,6 +53,8 @@ Shader "_Custom/shd_Laser"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
+
+                //Animação da uv
                 v.uv += _VertexAnimation.xy * frac(_Time.yy);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 return o;

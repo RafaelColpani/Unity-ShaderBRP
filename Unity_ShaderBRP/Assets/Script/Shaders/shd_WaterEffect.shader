@@ -50,20 +50,20 @@ Shader "_Custom/shd_Water"
                 float4 vertex : SV_POSITION; 
             };
             
-            //
+            //Varaiveis
             sampler2D _MainTex, _EffectTex;  
             float4 _MainTex_ST, _EffectTex_ST;  
-
             fixed4 _Color;
             float _OpenEffect, _CloseEffect, _Intensity, _AlphaTexture, _time;
             float4 _PosAnimation;
 
+            //
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
-                //UV Animation 
+                //UV Animação 
                 v.uv += _PosAnimation * frac(_Time.y * _time);
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex); 
@@ -73,24 +73,26 @@ Shader "_Custom/shd_Water"
 
             fixed4 frag (v2f i) : SV_Target
             {
-               
-               
-                //float2 centralPointUV = i.uv * 2 - 1; _PosAnimation
+                //Pegar o centro da UV
                 float2 centralPointUV = i.uv * 2 - 1  -  _PosAnimation; 
 
-                //float2 ring = length(centralPointUV);
-
+                //Criar uma variavel customizada de timer
                 float timer = frac(_Time.y * _time);
 
+                //Usar a função length, para futuras modificações
                 float len = length(centralPointUV);
 
-                float UpperRing = smoothstep(len + _OpenEffect, len - _CloseEffect, timer);
+                //Pega o lado de fora do efeito
+                float outside = smoothstep(len + _OpenEffect, len - _CloseEffect, timer);
 
-                float inverseRing = 1 - UpperRing;
+                //Preciso inverter o efeito
+                float reverse = 1 - outside;
 
-                float finalRing = UpperRing * inverseRing;
+                //outside * reverse que me da o meu resultado final
+                float finalResult = outside * reverse;
 
-                float finaUV = i.uv - centralPointUV * finalRing * _Intensity * (1 - timer);
+                //junta todas as variaveis em uma unica
+                float finaUV = i.uv - centralPointUV * finalResult * _Intensity * (1 - timer);
                 
                 //Textures
                 fixed4 col = tex2D(_MainTex, i.uv);

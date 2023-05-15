@@ -5,13 +5,13 @@ Shader "_Customt/shd_Light"
         [Header(Conf Textura)] [Space(5)]
         _MainTex ("Texture", 2D) = "white" {}
         _TexOffset ("Texture Offset", Range(0, 15.0)) = 1.0
-
         [Space(15)]
 
         [Header(Color)] [Space(5)]
         _Color1 ("Color 1", Color) = (0, 0, 0, 0)
         _Color2 ("Color 2", Color) = (0, 0, 0, 0)
         _Color3 ("Color 3", Color) = (0, 0, 0, 0)
+        [Space(15)]
 
         [Header(Animation)] [Space(5)]
         _AnimationTime ("Time", Range(0, 10.0)) = 1.0
@@ -61,11 +61,15 @@ Shader "_Customt/shd_Light"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //Textura principal
                 fixed4 col = tex2D(_MainTex, i.uv);
+                
+                //mapa de cores
                 fixed4 color1 = abs(0.1 + length(i.uv) - _TexOffset * abs(sin(_Time.y * _AnimationTime ))) * _Color1;
                 fixed4 color2 = abs(0.1 + length(i.uv) - _TexOffset * abs(sin(_Time.y * _AnimationTime ))) * _Color2;
                 fixed4 color3 = abs(0.1 + length(i.uv) - _TexOffset * abs(sin(_Time.y * _AnimationTime ))) * _Color3;
 
+                //Gera uma animação com as cores 
                 fixed4 allColor = sin(_Time.x + color1 + color2) ;
         
                 

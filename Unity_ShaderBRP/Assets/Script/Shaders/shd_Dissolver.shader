@@ -2,11 +2,16 @@ Shader "_Custom/shd_Dissolver"
 {
     Properties
     {
+        [Header(Textura)] [Space(5)]
         _MainTex ("Texture", 2D) = "white" {}  
         _NoiseTex ("Noise Texture", 2D) = "white" {}  
+        [Space(15)]
 
+        [Header(Color)] [Space(5)]
         _Color ("Color", Color) = (1, 1, 1, 1)
+        [Space(15)]
 
+        [Header(Conf Texture)] [Space(5)]
         _Intensity("Intensity", Float) = 1
         _Ramp("Ramp", Float) = 1
         _Noise("_Noise", Float) = 0.5
@@ -57,13 +62,24 @@ Shader "_Custom/shd_Dissolver"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //Textura principal
                 fixed3 col = tex2D(_MainTex, i.uv); 
                 
+                //https://docs.unity3d.com/Manual/SL-BuiltinFunctions.html
+                //Converts color to luminance (grayscale).
                 fixed lumiance = Luminance(col);
+
+                //Cor princial + lumiance
                 fixed3 mainColor = lumiance * _Color;
+
+                //https://forum.unity.com/threads/solved-the-difference-between-and-mathf-pow.520144/
+                //retorna o valor de um número x elevado a potência de um número
                 mainColor = pow(mainColor, _Ramp) * _Intensity;
 
+                //Textura do noise
                 fixed3 noiseTex = tex2D(_NoiseTex, i.uv);
+
+                //Animação da textura
                 fixed noiseMove = abs(sin(noiseTex.r * 10  + _Time.y));
                 noiseMove = step(noiseMove, _Noise);
 

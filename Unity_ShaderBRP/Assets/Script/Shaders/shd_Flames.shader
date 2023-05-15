@@ -57,6 +57,7 @@ Shader "_Custom/Flames"
             {
                 v2f o;
                 
+                //Animação da textura
                 o.distText = TRANSFORM_TEX(v.distText, _DistText);
 
                 o.vertex = UnityObjectToClipPos(v.vertex);
@@ -66,10 +67,14 @@ Shader "_Custom/Flames"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                //Animação da uv
                 fixed2 speed = float2(i.distText.x, i.distText.y + (_Time.y * _Speed));
+                
+                //Animação da textura
                 fixed4 distortion = tex2D(_DistText, speed);
                 fixed2 colset = float2(distortion.x, i.uv.y);
 
+                //Textura principal
                 fixed4 col = tex2D(_MainTex, colset);
                 col.a *= _Alpha;
 
