@@ -26,7 +26,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.402
+    - _Alpha: 0.344
     - _Emission: 1
     - _FresnelPower: 10
     - _FresnelRamp: 10
@@ -34,7 +34,7 @@ Material:
     - _vertexManipulation: 0.326
     - _vertexSize: 0
     m_Colors:
-    - _Color: {r: 1, g: 0.06132078, b: 0.06132078, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 0.6313726}
     - _GradientColor: {r: 1, g: 1, b: 1, a: 1}
     - _vertexManipulation: {r: 0, g: 0, b: 1.05, a: 0}
   m_BuildTextureStacks: []
