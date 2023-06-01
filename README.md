@@ -23,7 +23,7 @@
 
 https://github.com/RafaelColpani/Unity-ShaderBRP/assets/82834305/96e54ebb-1cf3-4ea2-8a34-76aea0551414
 
-- Water Effect Shader 
+- Water Effect + Ripple Shader 
 
 https://github.com/RafaelColpani/Unity-ShaderBRP/assets/82834305/97d5246f-b887-4497-9c4d-e4bc67c42c0f
 
